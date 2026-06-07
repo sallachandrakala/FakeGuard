@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FakeGuard — About</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ===== ANIMATED BACKGROUND ===== -->
+  <div class="animated-bg"></div>
+  <div class="floating-dots">
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+  </div>
+  <div class="light-rays">
+    <div class="light-ray"></div>
+    <div class="light-ray"></div>
+    <div class="light-ray"></div>
+    <div class="light-ray"></div>
+    <div class="light-ray"></div>
+  </div>
+
+  <nav class="navbar">
+    <a href="/" class="nav-logo"><span class="logo-icon">⚡</span> FakeGuard</a>
+    <div class="nav-links">
+      <a href="/" class="nav-link">Detect</a>
+      {% if session.get('is_admin') %}
+        <a href="/history" class="nav-link">History</a>
+      {% endif %}
+      <a href="/about" class="nav-link active">About</a>
+      {% if session.get('logged_in') %}
+        <span class="user-display">👤 {{ session.get('name', 'User') }}</span>
+        <a href="/logout" class="nav-link nav-auth-btn">Logout</a>
+      {% else %}
+        <a href="/login" class="nav-link nav-auth-btn">Login</a>
+      {% endif %}
+    </div>
+  </nav>
+
+  <div class="page-hero">
+    <div class="hero-bg-grid"></div>
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        Project Overview
+      </div>
+      <h1>About <span class="gradient-text">FakeGuard</span></h1>
+      <p>An Intelligent Machine Learning Solution for Fake News Detection</p>
+    </div>
+  </div>
+
+  <main class="main-container about-page">
+
+    <!-- Hero Image -->
+    <div class="card about-card">
+      <div class="about-image-container">
+        <img src="data:image/webp;base64,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" alt="About FakeGuard" class="about-image" />
+        <div class="about-image-overlay">
+          <p class="about-image-caption">Powered by Advanced Machine Learning & NLP</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Description -->
+    <div class="card about-card featured-card">
+      <h2 class="about-section-title">📋 What is FakeGuard?</h2>
+      <p class="about-lead">FakeGuard is an intelligent web application that uses machine learning to automatically detect fake news. By analyzing text patterns, vocabulary, and linguistic features, the system can classify news articles as real or fake with high accuracy, helping users make informed decisions about the content they consume.</p>
+    </div>
+
+    <!-- Key Points -->
+    <div class="card about-card">
+      <h2 class="about-section-title">✨ Key Highlights</h2>
+      <div class="key-points-list">
+        <div class="key-point">
+          <span class="key-point-icon">🎯</span>
+          <div class="key-point-content">
+            <h4>High Accuracy</h4>
+            <p>Achieves 98%+ accuracy on benchmark datasets using advanced ML algorithms</p>
+          </div>
+        </div>
+        <div class="key-point">
+          <span class="key-point-icon">⚡</span>
+          <div class="key-point-content">
+            <h4>Real-Time Analysis</h4>
+            <p>Process news articles in milliseconds with instant results</p>
+          </div>
+        </div>
+        <div class="key-point">
+          <span class="key-point-icon">�</span>
+          <div class="key-point-content">
+            <h4>Explainable AI</h4>
+            <p>Shows why news is classified as fake or real with key word analysis</p>
+          </div>
+        </div>
+        <div class="key-point">
+          <span class="key-point-icon">🔒</span>
+          <div class="key-point-content">
+            <h4>Privacy First</h4>
+            <p>Runs entirely offline with no data sent to third-party servers</p>
+          </div>
+        </div>
+        <div class="key-point">
+          <span class="key-point-icon">�</span>
+          <div class="key-point-content">
+            <h4>Responsive Design</h4>
+            <p>Works seamlessly on desktop, tablet, and mobile devices</p>
+          </div>
+        </div>
+        <div class="key-point">
+          <span class="key-point-icon">🤖</span>
+          <div class="key-point-content">
+            <h4>Advanced NLP</h4>
+            <p>Uses TF-IDF vectorization and text preprocessing for accurate analysis</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Technology Stack -->
+    <div class="card about-card">
+      <h2 class="about-section-title">🛠️ Technology Stack</h2>
+      <div class="tech-grid">
+        <div class="tech-chip">🐍 Python</div>
+        <div class="tech-chip">🌐 Flask</div>
+        <div class="tech-chip">🤖 Scikit-learn</div>
+        <div class="tech-chip">💬 NLTK</div>
+        <div class="tech-chip">📊 Pandas</div>
+        <div class="tech-chip">🔢 NumPy</div>
+        <div class="tech-chip">🎨 HTML/CSS</div>
+        <div class="tech-chip">⚡ JavaScript</div>
+      </div>
+    </div>
+
+    <!-- How It Works -->
+    <div class="card about-card">
+      <h2 class="about-section-title">🔄 How It Works</h2>
+      <div class="how-it-works-simple">
+        <div class="step-simple">
+          <div class="step-number">1</div>
+          <h4>Input Text</h4>
+          <p>Paste news article or headline</p>
+        </div>
+        <div class="step-arrow">→</div>
+        <div class="step-simple">
+          <div class="step-number">2</div>
+          <h4>Preprocessing</h4>
+          <p>Clean and tokenize text</p>
+        </div>
+        <div class="step-arrow">→</div>
+        <div class="step-simple">
+          <div class="step-number">3</div>
+          <h4>ML Analysis</h4>
+          <p>Classify using trained model</p>
+        </div>
+        <div class="step-arrow">→</div>
+        <div class="step-simple">
+          <div class="step-number">4</div>
+          <h4>Result</h4>
+          <p>Get prediction with explanation</p>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="footer">
+    <p>FakeGuard &mdash; Final Year Project &bull; Built with Flask + Scikit-learn</p>
+  </footer>
+
+</body>
+</html>

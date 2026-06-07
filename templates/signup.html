@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FakeGuard — Sign Up</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ===== ANIMATED BACKGROUND ===== -->
+  <div class="animated-bg"></div>
+  <div class="floating-dots">
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+  </div>
+  <div class="light-rays">
+    <div class="light-ray"></div>
+    <div class="light-ray"></div>
+    <div class="light-ray"></div>
+    <div class="light-ray"></div>
+    <div class="light-ray"></div>
+  </div>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar">
+    <a href="/" class="nav-logo">
+      <span class="logo-icon">⚡</span> FakeGuard
+    </a>
+    <div class="nav-links">
+      <a href="/" class="nav-link">Detect</a>
+      {% if session.get('is_admin') %}
+        <a href="/history" class="nav-link">History</a>
+      {% endif %}
+      <a href="/about" class="nav-link">About</a>
+      <a href="/login" class="nav-link">Login</a>
+    </div>
+  </nav>
+
+  <!-- ===== SIGNUP HERO ===== -->
+  <div class="login-hero">
+    <div class="hero-bg-grid"></div>
+    <div class="login-content">
+      <div class="login-badge">
+        <span class="badge-dot"></span>
+        Create Account
+      </div>
+      <h1 class="login-title">
+        Join <span class="gradient-text">FakeGuard</span>
+      </h1>
+      <p class="login-subtitle">
+        Sign up to access the fake news detection system and start analyzing news articles.
+      </p>
+    </div>
+  </div>
+
+  <!-- ===== SIGNUP FORM ===== -->
+  <main class="login-container">
+    <div class="card login-card">
+      <div class="login-header">
+        <div class="login-icon">📝</div>
+        <h2>Create Account</h2>
+        <p>Fill in your details to get started</p>
+      </div>
+
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            <div class="alert alert-{{ category }}">{{ message }}</div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+
+      <form method="POST" action="/signup" class="login-form">
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <input 
+            type="text" 
+            id="name" 
+            name="name" 
+            class="form-input" 
+            placeholder="Enter your full name"
+            required
+            autocomplete="name"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input 
+            type="email" 
+            id="email" 
+            name="email" 
+            class="form-input" 
+            placeholder="Enter your email"
+            required
+            autocomplete="email"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input 
+            type="text" 
+            id="username" 
+            name="username" 
+            class="form-input" 
+            placeholder="Choose a username"
+            required
+            autocomplete="username"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input 
+            type="password" 
+            id="password" 
+            name="password" 
+            class="form-input" 
+            placeholder="Create a password"
+            required
+            autocomplete="new-password"
+            minlength="6"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="confirm_password">Confirm Password</label>
+          <input 
+            type="password" 
+            id="confirm_password" 
+            name="confirm_password" 
+            class="form-input" 
+            placeholder="Confirm your password"
+            required
+            autocomplete="new-password"
+            minlength="6"
+          />
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-full">
+          <span class="btn-text">Create Account</span>
+        </button>
+      </form>
+
+      <div class="login-footer">
+        <p>Already have an account? <a href="/login" class="register-link">Sign In</a></p>
+      </div>
+    </div>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <p>FakeGuard &mdash; Final Year Project &bull; Built with Flask + Scikit-learn</p>
+  </footer>
+
+</body>
+</html>

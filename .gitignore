@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+dist/
+build/
+.eggs/
+venv/
+env/
+.env
+
+# Model files (large — regenerate via model_training.py)
+# Uncomment the line below if you want to exclude model files from git
+# model/*.pkl
+
+# Data
+dataset/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log

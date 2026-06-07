@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FakeGuard — Prediction History</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ===== ANIMATED BACKGROUND ===== -->
+  <div class="animated-bg"></div>
+  <div class="floating-dots">
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+  </div>
+  <div class="light-rays">
+    <div class="light-ray"></div>
+    <div class="light-ray"></div>
+    <div class="light-ray"></div>
+    <div class="light-ray"></div>
+    <div class="light-ray"></div>
+  </div>
+
+  <nav class="navbar">
+    <a href="/" class="nav-logo"><span class="logo-icon">⚡</span> FakeGuard</a>
+    <div class="nav-links">
+      <a href="/" class="nav-link">Detect</a>
+      <a href="/history" class="nav-link active">History</a>
+      <a href="/about" class="nav-link">About</a>
+      {% if session.get('logged_in') %}
+        <span class="user-display">👤 {{ session.get('name', 'User') }}</span>
+        <a href="/logout" class="nav-link nav-auth-btn">Logout</a>
+      {% else %}
+        <a href="/login" class="nav-link nav-auth-btn">Login</a>
+      {% endif %}
+    </div>
+  </nav>
+
+  <div class="page-hero">
+    <h1>Prediction <span class="gradient-text">History</span></h1>
+    <p>All user analyses - Admin Only View</p>
+  </div>
+
+  <main class="main-container">
+
+    <!-- Summary Cards -->
+    <div class="summary-grid">
+      <div class="summary-card total-card">
+        <div class="summary-icon">📊</div>
+        <div class="summary-val">{{ stats.total }}</div>
+        <div class="summary-lbl">Total Analyses</div>
+      </div>
+      <div class="summary-card fake-card">
+        <div class="summary-icon">🚨</div>
+        <div class="summary-val">{{ stats.fake }}</div>
+        <div class="summary-lbl">Fake News</div>
+      </div>
+      <div class="summary-card real-card">
+        <div class="summary-icon">✅</div>
+        <div class="summary-val">{{ stats.real }}</div>
+        <div class="summary-lbl">Real News</div>
+      </div>
+      {% if stats.total > 0 %}
+      <div class="summary-card acc-card">
+        <div class="summary-icon">📈</div>
+        <div class="summary-val">{{ ((stats.real / stats.total) * 100) | round(0) | int }}%</div>
+        <div class="summary-lbl">Real Rate</div>
+      </div>
+      {% endif %}
+    </div>
+
+    <!-- History Table -->
+    {% if history %}
+
+    <div class="card history-card">
+      <div class="history-card-header">
+        <h2>Recent Analyses</h2>
+        <form action="/clear_history" method="POST" style="display:inline">
+          <button type="submit" class="btn btn-danger"
+            onclick="return confirm('Clear all history?')">
+            Clear All
+          </button>
+        </form>
+      </div>
+
+      <div class="history-list">
+        {% for entry in history %}
+        <div class="history-item {{ 'fake-item' if entry.label == 'Fake' else 'real-item' }}">
+          <div class="history-item-left">
+            <div class="history-badge {{ 'fake-badge' if entry.label == 'Fake' else 'real-badge' }}">
+              {{ '🚨' if entry.label == 'Fake' else '✅' }} {{ entry.label }}
+            </div>
+            <p class="history-text">{{ entry.text }}</p>
+            <div class="history-meta">
+              <span class="user-info">
+                <strong>👤 {{ entry.username }}</strong>
+                {% if entry.email != 'N/A' %}
+                <a href="mailto:{{ entry.email }}" class="email-link" title="Send email">✉️ {{ entry.email }}</a>
+                {% endif %}
+              </span>
+              <span>📅 {{ entry.timestamp }}</span>
+              <span>📝 {{ entry.word_count }} words</span>
+              <span>🤖 {{ entry.model_used }}</span>
+            </div>
+          </div>
+          <div class="history-item-right">
+            <div class="history-conf">
+              <span class="conf-number">{{ entry.confidence }}%</span>
+              <span class="conf-label">confidence</span>
+            </div>
+            <div class="mini-bars">
+              <div class="mini-bar-row">
+                <span class="mini-label">F</span>
+                <div class="mini-track">
+                  <div class="mini-fill fake-fill" data-width="{{ entry.fake_prob }}"></div>
+                </div>
+                <span class="mini-pct">{{ entry.fake_prob }}%</span>
+              </div>
+              <div class="mini-bar-row">
+                <span class="mini-label">R</span>
+                <div class="mini-track">
+                  <div class="mini-fill real-fill" data-width="{{ entry.real_prob }}"></div>
+                </div>
+                <span class="mini-pct">{{ entry.real_prob }}%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    {% else %}
+    <div class="empty-state">
+      <div class="empty-icon">🔍</div>
+      <h3>No analyses yet</h3>
+      <p>Go back to the home page and analyse your first news article!</p>
+      <a href="/" class="btn btn-primary">Start Detecting →</a>
+    </div>
+    {% endif %}
+
+  </main>
+
+  <footer class="footer">
+    <p>FakeGuard &mdash; Final Year Project &bull; Built with Flask + Scikit-learn</p>
+  </footer>
+
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

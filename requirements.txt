@@ -1,0 +1,24 @@
+# ============================================================
+#  FAKE NEWS DETECTION — PYTHON DEPENDENCIES
+#  Install with: pip install -r requirements.txt
+# ============================================================
+
+# Web Framework
+Flask==3.0.3
+
+# Machine Learning
+scikit-learn==1.5.1
+numpy==1.26.4
+pandas==2.2.2
+
+# Natural Language Processing
+nltk==3.8.1
+
+# Utilities (Flask depends on these)
+Werkzeug==3.0.3
+Jinja2==3.1.4
+click==8.1.7
+itsdangerous==2.2.0
+
+# For deployment on Render / Gunicorn
+gunicorn==22.0.0

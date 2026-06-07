@@ -1,0 +1,16 @@
+{
+  "kala": {
+    "name": "salla chandrakala",
+    "email": "chandrakalasalla12@gmail.com",
+    "password": "1f2f36e375f2fdb8f6cf342c1ad02106b8ee1fb66d347b19fbb942ba99e00adc",
+    "created_at": "2026-06-06 12:54:03",
+    "is_admin": false
+  },
+  "chandra": {
+    "name": "salla chandrakala",
+    "email": "chandrakalasalla122@gmail.com",
+    "password": "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92",
+    "created_at": "2026-06-07 10:26:04",
+    "is_admin": false
+  }
+}
